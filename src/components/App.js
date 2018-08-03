@@ -6,6 +6,7 @@ import {
   Text,
   View,
   Button,
+  NativeModules
 } from 'react-native';
 import HomePage from './HomePage';
 import Login from './Login';

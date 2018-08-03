@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        tools:context="com.youtubedownloader.ToggleActivity">
+    <Button
+        android:id="@+id/getBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
+        android:text="Submit" /> 
+    <!-- <ToggleButton
+        android:id="@+id/toggle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="120dp"
+        android:checked="true"
+        android:textOff="OFF"
+        android:textOn="ON"/>
+    <ToggleButton
+        android:id="@+id/toggle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/toggle1"
+        android:layout_toRightOf="@+id/toggle1"
+        android:textOff="OFF"
+        android:textOn ="ON"/> -->
+
+</RelativeLayout>

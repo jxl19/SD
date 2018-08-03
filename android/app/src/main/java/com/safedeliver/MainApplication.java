@@ -5,7 +5,11 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
+import com.facebook.react.bridge.NativeModule;
+import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.shell.MainReactPackage;
+import com.facebook.react.uimanager.ViewManager;
+import com.facebook.react.views.image.ReactImageManager;
 import com.facebook.soloader.SoLoader;
 
 import java.util.Arrays;
@@ -22,7 +26,8 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage()
+        new MainReactPackage(),
+        new ActivityStarterReactPackage()
       );
     }
 

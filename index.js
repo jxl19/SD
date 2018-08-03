@@ -1,3 +1,5 @@
 import { AppRegistry } from 'react-native';
 import App from './src/components/App';
-AppRegistry.registerComponent('SafeDeliver', () => App);
+import HomePage from './src/components/HomePage';
+import Login from './src/components/Login';
+AppRegistry.registerComponent('SafeDeliver', () => Login);

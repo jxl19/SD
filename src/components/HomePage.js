@@ -6,15 +6,17 @@ import {
   Text,
   View,
   Button,
+  NativeModules
 } from 'react-native';
 import ToggleSwitch from 'toggle-switch-react-native'
 
-export default class App extends React.Component {
+export default class HomePage extends React.Component {
   state = {
     isOnLargeToggleSwitch: false,
   };
 
   render() {
+    const activityStarter = NativeModules.ActivityStarter;
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
@@ -29,6 +31,7 @@ export default class App extends React.Component {
           isOn={this.state.isOnLargeToggleSwitch}
           onToggle={isOnLargeToggleSwitch => {
             this.setState({ isOnLargeToggleSwitch });
+            activityStarter.toggleButton();
           }}
         />
       </View>

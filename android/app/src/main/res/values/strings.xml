@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">SafeDeliver</string>
+    <string name="app_name">YoutubeDownloader</string>
+    <string name="usage_stats_exception_message">
+        Usage Stats permission must be granted in order to be able to access foreground packages.
+    </string>
+    <string name="null_context_exception_message">
+        The context provided is null. Please make sure you pass a valid context.
+    </string>
 </resources>

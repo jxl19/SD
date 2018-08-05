@@ -10,9 +10,6 @@ import android.widget.Button;
 
 public class FloatingButtonService extends Service {
 
-    private static final double SMOOTH_X_FACTOR = 1.3;
-    private static final double SMOOTH_Y_FACTOR = 1.2;
-
     private View floatingBubbleView;
     private WindowManager windowManager;
 
@@ -46,7 +43,9 @@ public class FloatingButtonService extends Service {
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.TYPE_PHONE,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
+                WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH |
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 PixelFormat.TRANSLUCENT);
 
         params.gravity = Gravity.TOP | Gravity.RIGHT;
@@ -62,6 +61,13 @@ public class FloatingButtonService extends Service {
             @Override
             public void onClick(View v) {
                 Log.i("MyApp","This is a magic log message!");
+            }
+        });
+        btn.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Log.i("Long Click", "Longclick!");
+                return false;
             }
         });
     }

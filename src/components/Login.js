@@ -9,9 +9,6 @@ export default class Login extends React.Component {
       };
     render() {
         const activityStarter = NativeModules.ActivityStarter;
-        // const mod = NativeModules.Device.getDeviceName((err ,name) => {
-        //     console.log(err, name);
-        //  });
         return (
             <View style={styles.container}>
 

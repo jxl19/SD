@@ -1,5 +1,6 @@
 package com.safedeliver;
 
+import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
@@ -7,12 +8,16 @@ import android.os.IBinder;
 import android.util.Log;
 import android.view.*;
 import android.widget.Button;
+import android.content.pm.PackageManager;
+
 
 public class FloatingButtonService extends Service {
 
     private View floatingBubbleView;
+    private View numPad;
     private WindowManager windowManager;
-
+    private boolean trueFalse;
+    
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null) {
@@ -30,7 +35,7 @@ public class FloatingButtonService extends Service {
         windowManager = (WindowManager)getSystemService(WINDOW_SERVICE);
         floatingBubbleView = LayoutInflater.from(this).inflate(R.layout.floating_bubble_layout, null);
         handleFloatingBubble();
-
+        minimizeApp();
     }
 
     /**
@@ -38,6 +43,25 @@ public class FloatingButtonService extends Service {
      *
      * <p> sets the close button on-click event handler.</p>
      */
+    private void minimizeApp() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
+    }
+    //reopen the app
+    private void startApp(){
+        Intent i = new Intent(Intent.ACTION_MAIN);
+        PackageManager managerclock = getPackageManager();
+        i = managerclock.getLaunchIntentForPackage("com.safedeliver");
+        i.addCategory(Intent.CATEGORY_LAUNCHER);
+        startActivity(i);
+    }
+    private void numPad() {
+        Intent myIntent = new Intent(getApplicationContext(), NumberPadActivity.class);
+        myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(myIntent);
+    }
     private void handleFloatingBubble() {
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
@@ -54,19 +78,26 @@ public class FloatingButtonService extends Service {
 
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         windowManager.addView(floatingBubbleView, params);
-
-
+    
         Button btn = (Button) floatingBubbleView.findViewById(R.id.btnDoMagic);
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Log.i("MyApp","This is a magic log message!");
+                trueFalse = false;
+                Log.i("boolfalse", Boolean.toString(trueFalse));
+                startApp();
+                numPad();
+                stopSelf();
             }
         });
+
         btn.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 Log.i("Long Click", "Longclick!");
+                trueFalse = true;
+                Log.i("booltrue", Boolean.toString(trueFalse));
                 return false;
             }
         });

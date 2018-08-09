@@ -1,14 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, Image, Text, Button } from 'react-native';
 import LoginForm from './LoginForm';
-import { NativeModules } from 'react-native';
-import ToggleSwitch from 'toggle-switch-react-native'
+
 export default class Login extends React.Component {
-    state = {
-        isOnLargeToggleSwitch: false,
-      };
     render() {
-        const activityStarter = NativeModules.ActivityStarter;
         return (
             <View style={styles.container}>
 
@@ -22,15 +17,6 @@ export default class Login extends React.Component {
                 </View>
                 <View style={styles.formContainer}>
                     <LoginForm />
-                    <ToggleSwitch
-                        label="Hello"
-                        size="large"
-                        isOn={this.state.isOnLargeToggleSwitch}
-                        onToggle={isOnLargeToggleSwitch => {
-                            this.setState({ isOnLargeToggleSwitch });
-                            activityStarter.toggleButton();
-                        }}
-                    />
                 </View>
             </View>
         )

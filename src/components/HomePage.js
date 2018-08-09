@@ -20,13 +20,17 @@ export default class HomePage extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          HOW APP WORKS
+          Toggle on to create a floating button. The button will hover on the top right side of your phone. Hold the button when you are feeling unsafe and let go when you feel safe. 
+          </Text>
+          <Text style={styles.welcome}>
+          Once you let go, the app will prompt you for the 4 digit pin you created to let the app know that you are safe. If pin is not put in or incorrectly put in within a 15 second time frame, you will recieve a text/call to see if you are safe. If there is no response for that call/text, the proper authorities will then be called.
+
   </Text>
         <Text style={styles.instructions}>
-          PIN CAN SHOW HERE 
+          Your Pin: 1234
   </Text>
         <ToggleSwitch
-          label="Hello"
+          label="Toggle Button"
           size="large"
           isOn={this.state.isOnLargeToggleSwitch}
           onToggle={isOnLargeToggleSwitch => {
@@ -55,5 +59,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 30,
+    fontSize: 15
   },
 });

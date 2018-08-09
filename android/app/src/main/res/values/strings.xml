@@ -3,7 +3,11 @@
     <string name="usage_stats_exception_message">
         Usage Stats permission must be granted in order to be able to access foreground packages.
     </string>
-   <string name="example_edittext">Example showing EditText</string>
+
+   <!-- <string name="example_edittext">Example showing EditText</string>
    <string name="show_the_text">Show the Text</string>
-   <string name="enter_text">text changes</string>
+   <string name="enter_text">text changes</string> -->
+
+       <string name="pin_content_desc">PIN input field</string>
+       <string name="pin_label_text">PIN</string>
 </resources>

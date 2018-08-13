@@ -16,7 +16,8 @@ public class FloatingButtonService extends Service {
     private View floatingBubbleView;
     private View numPad;
     private WindowManager windowManager;
-    private boolean trueFalse;
+    private boolean trueFalse;  
+    private int lati;
     
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -62,6 +63,11 @@ public class FloatingButtonService extends Service {
         myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(myIntent);
     }
+    private void location() {
+        Intent myIntent = new Intent(getApplicationContext(), MapsActivity.class);
+        myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(myIntent);
+    }
     private void handleFloatingBubble() {
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
@@ -87,6 +93,7 @@ public class FloatingButtonService extends Service {
                 trueFalse = false;
                 Log.i("boolfalse", Boolean.toString(trueFalse));
                 startApp();
+                location();
                 numPad();
                 stopSelf();
             }

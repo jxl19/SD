@@ -22,6 +22,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.lang.*;
 import com.facebook.react.ReactActivity;
 
 public class NumberPadActivity extends ReactActivity implements View.OnFocusChangeListener, View.OnKeyListener, TextWatcher {

@@ -1,8 +1,42 @@
 import React from 'react';
 import { StyleSheet, View, Image, Text, Button } from 'react-native';
 import LoginForm from './LoginForm';
+import SignUp from './SignUp';
 
 export default class Login extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { 
+          display: 'loginForm' 
+        }; //this is how  you set up state
+      }
+      //fix later..
+    renderForm = () => {
+        // What page should show?
+        console.log("current display :" + this.state.display);
+        switch(this.state.display){
+          case 'signUpForm':
+          console.log('hello');
+            return <SignUp />;
+          break;
+          case 'loginForm':
+          console.log('hello2');
+            return <LoginForm handleForm={this.signUpForm} />; //pass method to child
+          break;
+          default:
+          console.log('hello3');
+            return <LoginForm handleForm={this.signUpForm} />;
+          break;
+        }
+      }
+
+      signUpForm = () => {
+        this.setState({ display: 'signUpForm' });
+      }
+    //   forgotPasswordForm = () => {
+    //       this.setState({display: 'forgotPasswordForm'})
+    //   }
+
     render() {
         return (
             <View style={styles.container}>
@@ -16,7 +50,7 @@ export default class Login extends React.Component {
                     </Text>
                 </View>
                 <View style={styles.formContainer}>
-                    <LoginForm />
+                    {this.renderForm()}
                 </View>
             </View>
         )
@@ -32,7 +66,7 @@ const styles = StyleSheet.create({
     },
     logoContainer: {
         alignItems: 'center',
-        flexGrow: 1,
+        flexGrow: 0.5,
         justifyContent: 'center'
     },
     logo: {

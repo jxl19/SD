@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, TextInput, Text, TouchableOpacity } from 'react-native';
-
+import { Redirect } from 'react-router-native';
+// import { API_BASE_URL } from '../config';
 export default class SignUpForm extends React.Component {
 
     constructor(props){
@@ -12,11 +13,13 @@ export default class SignUpForm extends React.Component {
           confirmPassword: '',
           pin: '',
           signupFailed: false,
-          signupPassError: false
+          signupPassError: false,
+          signUpComplete: false,
+          pressed: false
         }
       }
     handlePress = () => {
-        this.setState({signupPassError:false, signupFailed: false});
+        this.setState({signupPassError:false, signupFailed: false, pressed: true});
         if(this.state.password === this.state.confirmPassword) {
             //dispatch signup
             const userData = {
@@ -32,31 +35,63 @@ export default class SignUpForm extends React.Component {
             //view of inccorect pass
             console.log("no match");
         }
+        console.log('pressed');
     }
-    login = () => {
-
+    handleLogin = (userData) => {
+        console.log(userData);
+        console.log({username: userData.username, password: userData.password});
+        fetch(`https://safedeliver.herokuapp.com/api/users/login`,
+        {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: userData.username,
+                password: userData.password
+            })
+        })
+        .then(res => {
+            if (!res.ok) {
+                return Promise.reject(res.statusText);
+            }
+            // login here
+            console.log('logged in');
+            this.setState({signUpComplete: true});
+        })
+        .catch(err => console.log(err))
     }
-    // handleSignUp = (userData) => {
-    //     console.log(userData);
-    //     // if signup fails we set state of signupfailed to true
-    //     fetch(`${API_BASE_URL}/users/signup`,
-    //     {
-    //         method: 'POST',
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(userData)
-    //     })
-    //     .then(res => {
-    //         if (!res.ok) {
-    //             this.setState({signupFailed:true});
-    //             return Promise.reject(res.statusText);
-    //         }
-    //         // login after signup is good
-    //     })
-    // }
+    handleSignUp = (userData) => {
+        // console.log(userData);
+        // if signup fails we set state of signupfailed to true
+        fetch(`https://safedeliver.herokuapp.com/api/users/signup`,
+        {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData)
+        })
+        .then(res => {
+            if (!res.ok) {
+                this.setState({signupFailed:true});
+                return Promise.reject(res.statusText);
+            }
+            // dispatch(login(data)) - we login here once everything is GUCCIGANGGGG
+            console.log('successfully created account');
+            // this.setState({signUpComplete: true});
+            this.handleLogin(userData);
+        })
+        .catch(err => console.log(err))
+    }
     render() {
+        //turn off to test
+        //if signup compleete is true and pressed then we redirect.
+        if(this.state.pressed && this.state.signUpComplete) {
+            return <Redirect to="/HomePage" />
+        }
         return (
             <View style={styles.container}>
                 <TextInput

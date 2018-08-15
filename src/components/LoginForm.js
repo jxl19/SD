@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, TextInput, Text, TouchableOpacity } from 'react-native';
-
+import { Redirect } from 'react-router-native';
 export default class LoginForm extends React.Component {
 
     constructor(props){
@@ -9,13 +9,40 @@ export default class LoginForm extends React.Component {
         this.state = {
           username: '',
           password: '',
+          loginComplete: false
         }
       }
     handlePress = () => {
         console.log(this.state.username);
         console.log(this.state.password);
     }
+    handleLogin = () => {
+        fetch(`https://safedeliver.herokuapp.com/api/users/login`,
+        {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: this.state.username,
+                password: this.state.password
+            })
+        })
+        .then(res => {
+            if (!res.ok) {
+                return Promise.reject(res.statusText);
+            }
+            // login here
+            console.log('logged in');
+            this.setState({loginComplete: true});
+        })
+        .catch(err => console.log(err))
+    }
     render() {
+        if(this.state.loginComplete) {
+            return <Redirect to="/HomePage" />
+        }
         return (
             <View style={styles.container}>
                 <TextInput
@@ -38,9 +65,8 @@ export default class LoginForm extends React.Component {
                     onChangeText={(text) => this.setState({password:text})}
                     style={styles.input}>
                 </TextInput>
-                <TouchableOpacity onPress={this.handlePress}style={styles.buttonContainer}>
+                <TouchableOpacity onPress={this.handleLogin}style={styles.buttonContainer}>
                     <Text style={styles.buttonText}>
-                        {/* request to login here */}
                         LOGIN
                     </Text>
                 </TouchableOpacity>

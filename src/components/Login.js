@@ -1,43 +1,27 @@
 import React from 'react';
 import { StyleSheet, View, Image, Text, Button } from 'react-native';
+import { Redirect } from 'react-router-native';
 import LoginForm from './LoginForm';
 import SignUp from './SignUp';
 
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { 
-          display: 'loginForm' 
+        this.state = {
+            display: 'loginForm'
         }; //this is how  you set up state
-      }
-      //fix later..
-    renderForm = () => {
-        // What page should show?
-        console.log("current display :" + this.state.display);
-        switch(this.state.display){
-          case 'signUpForm':
-          console.log('hello');
-            return <SignUp />;
-          break;
-          case 'loginForm':
-          console.log('hello2');
-            return <LoginForm handleForm={this.signUpForm} />; //pass method to child
-          break;
-          default:
-          console.log('hello3');
-            return <LoginForm handleForm={this.signUpForm} />;
-          break;
-        }
-      }
+    }
 
-      signUpForm = () => {
-        this.setState({ display: 'signUpForm' });
-      }
-    //   forgotPasswordForm = () => {
-    //       this.setState({display: 'forgotPasswordForm'})
-    //   }
+    signUpForm = () => {
+        console.log('signup');
+        this.setState({ display: 'SignUpForm' });
+    }
 
     render() {
+        if (this.state.display === 'SignUpForm') {
+            console.log('here');
+            return <Redirect to='/SignUp'/>;
+        }
         return (
             <View style={styles.container}>
 
@@ -50,7 +34,7 @@ export default class Login extends React.Component {
                     </Text>
                 </View>
                 <View style={styles.formContainer}>
-                    {this.renderForm()}
+                    <LoginForm handleForm={this.signUpForm} />
                 </View>
             </View>
         )

@@ -6,6 +6,9 @@ import HomePage from './HomePage';
 import Login from './Login';
 import SignUp from './SignUp';
 import Home from './Home';
+import createHistory from 'history/createMemoryHistory';
+
+const history = createHistory();
 
 export default class App extends React.Component {
 
@@ -14,8 +17,10 @@ export default class App extends React.Component {
       <NativeRouter>
         <View style={styles.container}>
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/" component={Login} />
+          <Route exact path="/SignUp" component={SignUp} />
+          <Route exact path="/HomePage" component={HomePage} />
+          <Route exact path="/Home" component={Home} />
         </Switch>
         </View>
       </NativeRouter>

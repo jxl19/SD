@@ -105,6 +105,9 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+    manifestPlaceholders = [
+      appAuthRedirectScheme: 'io.identityserver.demo'
+    ]
     }
     splits {
         abi {
@@ -140,6 +143,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-app-auth')
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:27.0.2"

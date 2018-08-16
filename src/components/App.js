@@ -5,7 +5,8 @@ import { NativeRouter, Switch, Route } from 'react-router-native';
 import HomePage from './HomePage';
 import Login from './Login';
 import SignUp from './SignUp';
-import Home from './Home';
+import GetAuth from './GetAuth';
+import HandleAuth from './HandleAuth';
 import createHistory from 'history/createMemoryHistory';
 
 const history = createHistory();
@@ -20,7 +21,8 @@ export default class App extends React.Component {
           <Route exact path="/" component={Login} />
           <Route exact path="/SignUp" component={SignUp} />
           <Route exact path="/HomePage" component={HomePage} />
-          <Route exact path="/Home" component={Home} />
+          <Route exact path="/GetAuth" component={GetAuth} />
+          <Route exact path="/HandleAuth" component={HandleAuth}/>
         </Switch>
         </View>
       </NativeRouter>

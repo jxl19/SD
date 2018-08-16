@@ -94,7 +94,7 @@ public class FloatingButtonService extends Service {
                 Log.i("boolfalse", Boolean.toString(trueFalse));
                 startApp();
                 location();
-                numPad();
+                // numPad();
                 stopSelf();
             }
         });

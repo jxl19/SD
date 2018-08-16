@@ -9,12 +9,29 @@ export default class LoginForm extends React.Component {
         this.state = {
           username: '',
           password: '',
+          accessToken: '',
+          refreshToken: '',
           loginComplete: false
         }
       }
+      //we need to create another method for handlelogin to do before the redirects. we need to check if accesstokens exist to decide where to redirect to.
     handlePress = () => {
         console.log(this.state.username);
         console.log(this.state.password);
+    }
+    handleRedirect = () => {
+            fetch(`https://safedeliver.herokuapp.com/api/users/testuser`,
+              {
+                method: 'GET'
+              })
+              .then(res => {
+                return res.json();
+              })
+              .then(res => {
+                  console.log(res);
+                  this.setState({accessToken : res.accessToken, refreshToken : res.refreshToken, loginComplete: true});
+              })
+              .catch(err => console.log(err))
     }
     handleLogin = () => {
         fetch(`https://safedeliver.herokuapp.com/api/users/login`,
@@ -35,13 +52,19 @@ export default class LoginForm extends React.Component {
             }
             // login here
             console.log('logged in');
-            this.setState({loginComplete: true});
+            // this.setState({loginComplete: true});
+            this.handleRedirect();
         })
         .catch(err => console.log(err))
     }
     render() {
-        if(this.state.loginComplete) {
-            return <Redirect to="/HomePage" />
+        if(!this.state.accessToken && !this.state.refreshToken && this.state.loginComplete) {
+            console.log("redir to handle auth");
+            return <Redirect to="/HandleAuth" />
+        }
+        else if(this.state.accessToken &&  this.state.refreshToken && this.state.loginComplete) {
+            console.log("redir to homepage");
+            return <Redirect to='/HomePage'/>
         }
         return (
             <View style={styles.container}>

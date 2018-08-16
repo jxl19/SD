@@ -90,7 +90,7 @@ export default class SignUpForm extends React.Component {
         //turn off to test
         //if signup compleete is true and pressed then we redirect.
         if(this.state.pressed && this.state.signUpComplete) {
-            return <Redirect to="/HomePage" />
+            return <Redirect to="/HandleAuth" />
         }
         return (
             <View style={styles.container}>
@@ -139,7 +139,6 @@ export default class SignUpForm extends React.Component {
                 </TextInput>
                 <TouchableOpacity onPress={this.handlePress}style={styles.buttonContainer}>
                     <Text style={styles.buttonText}>
-                        {/* request to login here */}
                         Sign Up
                     </Text>
                 </TouchableOpacity>

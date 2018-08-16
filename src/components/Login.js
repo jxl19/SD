@@ -9,8 +9,9 @@ export default class Login extends React.Component {
         super(props);
         this.state = {
             display: 'loginForm'
-        }; //this is how  you set up state
+        };
     }
+
 
     signUpForm = () => {
         console.log('signup');
@@ -20,7 +21,7 @@ export default class Login extends React.Component {
     render() {
         if (this.state.display === 'SignUpForm') {
             console.log('here');
-            return <Redirect to='/SignUp'/>;
+            return <Redirect to='/SignUp' />;
         }
         return (
             <View style={styles.container}>

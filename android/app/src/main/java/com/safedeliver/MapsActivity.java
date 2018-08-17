@@ -22,43 +22,44 @@ public class MapsActivity extends Activity implements LocationListener {
     private TextView longitudeField;
     private LocationManager locationManager;
     private String provider;
-    
-    public static void call_me() throws Exception {
-        String url = "http://httpbin.org/ip";
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-            // optional default is GET
-            con.setRequestMethod("GET");
-            //add request header
-            con.setRequestProperty("User-Agent", "Mozilla/5.0");
-            int responseCode = con.getResponseCode();
-            Log.i("get req", "Sending 'GET' request to URL : " + url);
-            Log.i("req code", "Response Code : " + responseCode);
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
+    //get req
+
+    // public static void call_me() throws Exception {
+    //     String url = "http://httpbin.org/ip";
+    //         URL obj = new URL(url);
+    //         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+    //         // optional default is GET
+    //         con.setRequestMethod("GET");
+    //         //add request header
+    //         con.setRequestProperty("User-Agent", "Mozilla/5.0");
+    //         int responseCode = con.getResponseCode();
+    //         Log.i("get req", "Sending 'GET' request to URL : " + url);
+    //         Log.i("req code", "Response Code : " + responseCode);
+    //         BufferedReader in = new BufferedReader(
+    //                 new InputStreamReader(con.getInputStream()));
+    //         String inputLine;
+    //         StringBuffer response = new StringBuffer();
+    //         while ((inputLine = in.readLine()) != null) {
+    //             response.append(inputLine);
+    //         }
+    //         in.close();
             
-            //print in String
-            Log.i("response", "resString: " + response.toString());
+    //         //print in String
+    //         Log.i("response", "resString: " + response.toString());
             
-            //Read JSON response and print
-            JSONObject myResponse = new JSONObject(response.toString());
-            Log.i("resssss", "result after Reading JSON Response");
-            Log.i("origin", "origin- " +myResponse.getString("origin"));
+    //         //Read JSON response and print
+    //         JSONObject myResponse = new JSONObject(response.toString());
+    //         Log.i("resssss", "result after Reading JSON Response");
+    //         Log.i("origin", "origin- " +myResponse.getString("origin"));
              
-            }
+    //         }
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        latituteField = (TextView) findViewById(R.id.TextView02);
-        longitudeField = (TextView) findViewById(R.id.TextView04);
+        // setContentView(R.layout.activity_maps);
+        // latituteField = (TextView) findViewById(R.id.TextView02);
+        // longitudeField = (TextView) findViewById(R.id.TextView04);
         
         // Get the location manager
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -70,45 +71,52 @@ public class MapsActivity extends Activity implements LocationListener {
 
         // Initialize the location fields
         if (location != null) {
-            System.out.println("Provider " + provider + " has been selected.");
+            Log.i("change location", "value: " + location);
             onLocationChanged(location);
         } else {
-            latituteField.setText("Location not available");
-            longitudeField.setText("Location not available");
+            Log.i("change location", "Location not available");
         }
-        if (android.os.Build.VERSION.SDK_INT > 9)
-        {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
-        try {
-            MapsActivity.call_me();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        //this is for the http reqs
+        // if (android.os.Build.VERSION.SDK_INT > 9)
+        // {
+        //     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        //     StrictMode.setThreadPolicy(policy);
+        // }
+        // try {
+        //     MapsActivity.call_me();
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
     }
 
     /* Request updates at startup */
-    @Override
-    protected void onResume() {
-        super.onResume();
-        locationManager.requestLocationUpdates(provider, 400, 1, this);
-    }
+    // @Override
+    // protected void onResume() {
+    //     super.onResume();
+    //     locationManager.requestLocationUpdates(provider, 400, 1, this);
+    // }
 
-    /* Remove the locationlistener updates when Activity is paused */
-    @Override
-    protected void onPause() {
-        super.onPause();
-        locationManager.removeUpdates(this);
-    }
+    // /* Remove the locationlistener updates when Activity is paused */
+    // @Override
+    // protected void onPause() {
+    //     super.onPause();
+    //     locationManager.removeUpdates(this);
+    // }
 
     @Override
     public void onLocationChanged(Location location) {
         int lat = (int) (location.getLatitude());
         int lng = (int) (location.getLongitude());
-        latituteField.setText(String.valueOf(lat));
-        longitudeField.setText(String.valueOf(lng));
+        // latituteField.setText(String.valueOf(lat));
+        // longitudeField.setText(String.valueOf(lng));
+        Log.i("lat", "value: " + lat);
+        Log.i("lng", "value: " + lng);
+        // Longitude = lng;
+        // Latitude.setNum(lat);
     }
+
+    //need bottom 3
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
         // TODO Auto-generated method stub

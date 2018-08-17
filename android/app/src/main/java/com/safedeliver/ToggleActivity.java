@@ -18,7 +18,7 @@ public class ToggleActivity extends ReactActivity {
         super.onCreate(savedInstanceState);
         initializeFloatingBubble();
     }
-
+    
     /**
      * Set and initialize the floating bubble.
      */

@@ -9,6 +9,8 @@ export default class GetAuth extends React.Component {
     
         this.state = {
           closePage: false,
+          accessToken: '',
+          refreshToken: ''
         }
       }
     onNavigationStateChange(webViewState) {
@@ -20,11 +22,28 @@ export default class GetAuth extends React.Component {
         }
     }
     handleClose = () => { 
-        this.setState({closePage:true});
+        fetch(`https://safedeliver.herokuapp.com/api/users/testuser`,
+        {
+          method: 'GET'
+        })
+        .then(res => {
+          return res.json();
+        })
+        .then(res => {
+          console.log(res);
+          this.setState({ accessToken: res.accessToken, refreshToken : res.refreshToken, closePage: true });
+        })
+        .catch(err => console.log(err))
+    
+        
     }
     render() {
-        if(this.state.closePage) {
+        if(this.state.closePage && this.state.accessToken && this.state.refreshToken) {
             return <Redirect to='/HomePage' />
+        } 
+        else if(this.state.closePage && !this.state.accessToken && !this.state.refreshToken) {
+            console.log('am i here');
+            return <Redirect to='/HandleAuth' />
         }
         return (
             <View style={styles.container}>

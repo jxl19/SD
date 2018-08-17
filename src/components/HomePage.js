@@ -1,6 +1,6 @@
 //@flow
 import React from 'react';
-import {Platform,StyleSheet,Text,View,Button,NativeModules} from 'react-native';
+import { Platform, StyleSheet, Text, View, Button, NativeModules } from 'react-native';
 import { Redirect } from 'react-router-native';
 import ToggleSwitch from 'toggle-switch-react-native';
 
@@ -18,12 +18,12 @@ export default class HomePage extends React.Component {
         return res.json();
       })
       .then(res => {
-          console.log(res);
-          this.setState({pin : res.pin});
+        console.log(res);
+        this.setState({ pin: res.pin });
       })
       .catch(err => console.log(err))
   }
-  
+
   componentDidMount() {
     this.grabData();
   }
@@ -43,7 +43,7 @@ export default class HomePage extends React.Component {
           </Text>
         <Text style={styles.instructions}>
           Your Pin: {this.state.pin}
-  </Text>
+        </Text>
         <ToggleSwitch
           label="Toggle Button"
           size="large"

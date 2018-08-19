@@ -8,9 +8,7 @@ export default class GetAuth extends React.Component {
         super(props)
     
         this.state = {
-          closePage: false,
-          accessToken: '',
-          refreshToken: ''
+          toHome:false
         }
       }
     onNavigationStateChange(webViewState) {
@@ -18,40 +16,15 @@ export default class GetAuth extends React.Component {
         currentUrl = webViewState.url.split('?')[0];
         console.log("url outside split: " + currentUrl);
         if (currentUrl == 'https://safedeliver.herokuapp.com/callback') {
-            //find way to close out of webview from here
+            this.setState({toHome:true})
         }
-    }
-    handleClose = () => { 
-        fetch(`https://safedeliver.herokuapp.com/api/users/testuser`,
-        {
-          method: 'GET'
-        })
-        .then(res => {
-          return res.json();
-        })
-        .then(res => {
-          console.log(res);
-          this.setState({ accessToken: res.accessToken, refreshToken : res.refreshToken, closePage: true });
-        })
-        .catch(err => console.log(err))
-    
-        
     }
     render() {
-        if(this.state.closePage && this.state.accessToken && this.state.refreshToken) {
+        if(this.state.toHome) {
             return <Redirect to='/HomePage' />
         } 
-        else if(this.state.closePage && !this.state.accessToken && !this.state.refreshToken) {
-            console.log('am i here');
-            return <Redirect to='/HandleAuth' />
-        }
         return (
             <View style={styles.container}>
-                <TouchableOpacity onPress={this.handleClose} style={styles.buttonContainer}>
-                    <Text style={styles.buttonText}>
-                        Close Page
-                    </Text>
-                </TouchableOpacity>
                 <WebView
                     ref={(ref) => { this.webview = ref; }}
                     source={{ uri: 'https://safedeliver.herokuapp.com/redir' }}
@@ -66,9 +39,5 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#2196F3'
-    },
-    buttonContainer: {
-        backgroundColor: '#3F51B5',
-        paddingVertical: 15
-    },
+    }
 });

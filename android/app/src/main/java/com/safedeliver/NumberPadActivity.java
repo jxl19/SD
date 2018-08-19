@@ -179,7 +179,7 @@ public class NumberPadActivity extends ReactActivity implements View.OnFocusChan
     }
 
     /**
-     * Initialize EditText fields.
+     * init pin fields.
      */
     private void init() {
         mPinFirstDigitEditText = (EditText) findViewById(R.id.pin_first_edittext);
@@ -192,8 +192,9 @@ public class NumberPadActivity extends ReactActivity implements View.OnFocusChan
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //grab pin from server here
+        //userid
         load();
+        //user pin
         getPin();
         setContentView(new MainLayout(this, null));
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -208,12 +209,11 @@ public class NumberPadActivity extends ReactActivity implements View.OnFocusChan
             Log.i("change location", "value: " + location);
             onLocationChanged(location);
         } else {
-            Log.i("change location", "Location not available");
+            locationManager.requestLocationUpdates(provider, 1000, 0, this);
         }
         init();
         setPINListeners();
     }
-
     @Override
     public void onLocationChanged(Location location) {
         int lat = (int) (location.getLatitude());

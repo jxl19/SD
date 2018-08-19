@@ -103,7 +103,7 @@ public class FloatingButtonService extends Service implements LocationListener {
 
     //api call 
     private void createAlarm() {
-                if (android.os.Build.VERSION.SDK_INT > 9)
+        if (android.os.Build.VERSION.SDK_INT > 9)
         {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -161,7 +161,7 @@ public class FloatingButtonService extends Service implements LocationListener {
             Log.i("change location", "value: " + location);
             onLocationChanged(location);
         } else {
-            Log.i("change location", "Location not available");
+            locationManager.requestLocationUpdates(provider, 1000, 0, this);
         }
     }
     public void load() {
@@ -195,20 +195,21 @@ public class FloatingButtonService extends Service implements LocationListener {
                 PixelFormat.TRANSLUCENT);
 
         params.gravity = Gravity.TOP | Gravity.RIGHT;
-        params.x = 150;
-        params.y = 150;
+        params.x = 0;
+        params.y = 0;
 
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         windowManager.addView(floatingBubbleView, params);
     
         Button btn = (Button) floatingBubbleView.findViewById(R.id.btnDoMagic);
-        btn.setText("");
+        btn.setBackgroundColor(R.color.transparent);
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Log.i("alarm", "value: " + buttonPressed);
                 if(!buttonPressed) {
                     Log.i("onclick", "creating alarm from onclick");
+                    location();
                     createAlarm();
                 }
                     startApp();

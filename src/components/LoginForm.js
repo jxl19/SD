@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, TextInput, Text, TouchableOpacity, NativeModules } from 'react-native';
 import { Redirect } from 'react-router-native';
+import * as Progress from 'react-native-progress';
 export default class LoginForm extends React.Component {
 
     constructor(props) {
@@ -12,16 +13,18 @@ export default class LoginForm extends React.Component {
             accessToken: '',
             refreshToken: '',
             loginComplete: false,
-            invalidLogin: false
+            invalidLogin: false,
+            loading: false,
         }
     }
-    //we need to create another method for handlelogin to do before the redirects. we need to check if accesstokens exist to decide where to redirect to.
-    handlePress = () => {
-        console.log(this.state.username);
-        console.log(this.state.password);
-    }
+    
     handleLogin = () => {
-        fetch(`https://safedeliver.herokuapp.com/api/users/login`,
+        this.setState({loading:true});
+        if(!this.state.username || !this.state.password) {
+            this.setState({loading:false});
+            this.setState({invalidLogin:true});
+        }
+        else fetch(`https://safedeliver.herokuapp.com/api/users/login`,
             {
                 method: 'POST',
                 headers: {
@@ -35,7 +38,8 @@ export default class LoginForm extends React.Component {
             })
             .then(res => {
                 if (!res.ok) {
-                    this.setState({ invalidLogin: true });
+                    'hello';
+                    this.setState({ invalidLogin: true, loading: false });
                     return Promise.reject(res.statusText);
                 }
                 console.log('logged in');
@@ -66,12 +70,21 @@ export default class LoginForm extends React.Component {
             })
             .then(res => {
                 activityStarter.grabInfo(res.id);
-                this.setState({ accessToken: res.accessToken, refreshToken: res.refreshToken, loginComplete: true });
+                this.setState({ accessToken: res.accessToken, refreshToken: res.refreshToken, loginComplete: true, loading: false });
             })
             .catch(err => console.log(err))
     }
     render() {
-        let Invalid;
+        let Invalid, LoadingCircle;
+        if(this.state.loading) {
+            LoadingCircle = <View style={styles.circles}>
+            <Progress.Circle
+              indeterminate={true}
+              color={"#ecf0f1"}
+              size={50}
+              borderWidth={2}
+            /></View>;
+        }
         if (!this.state.accessToken && !this.state.refreshToken && this.state.loginComplete) {
             return <Redirect to="/HandleAuth" />
         }
@@ -109,10 +122,11 @@ export default class LoginForm extends React.Component {
                         Login
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={this.handleLogin} style={styles.signUpContainer}>
+                <TouchableOpacity onPress={this.props.handleForm} style={styles.signUpContainer}>
                     <Text onPress={this.props.handleForm} style={styles.signUpText}> Sign Up </Text>
                 </TouchableOpacity>
                 {Invalid}
+                {LoadingCircle}
             </View>
         )
     }
@@ -135,7 +149,7 @@ const styles = StyleSheet.create({
         marginBottom: 7
     },
     signUpContainer: {
-        backgroundColor: '#f1c40f',
+        backgroundColor: '#fbc531',
         paddingVertical: 15,
         marginBottom: 7
     },
@@ -152,6 +166,11 @@ const styles = StyleSheet.create({
     loginError: {
         textAlign: 'center',
         color: 'red',
-        fontWeight: '600'
-    }
+        fontSize: 16
+    },
+    circles: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 })

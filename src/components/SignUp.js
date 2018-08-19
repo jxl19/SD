@@ -9,10 +9,7 @@ export default class SignUp extends React.Component {
 
                 <View style={styles.logoContainer}>
                     <Text style={styles.textLogo}>
-                        LOGO
-                    </Text>
-                    <Text style={styles.title}>
-                        Signup text
+                        <Text style={styles.textFirst}>Safe</Text><Text style={styles.textSecond}>Deliver</Text>
                     </Text>
                 </View>
                 <View style={styles.formContainer}>
@@ -40,7 +37,7 @@ const styles = StyleSheet.create({
         height: 100
     },
     textLogo: {
-        fontSize: 30,
+        fontSize: 35,
         fontWeight: 'bold'
     },
     title: {
@@ -51,7 +48,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 20
     },
-    formContainer: {
-        
+    textFirst: {
+        color: 'white'
+    },
+    textSecond: {
+        color: '#fbc531'
     }
 });

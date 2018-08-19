@@ -28,10 +28,7 @@ export default class Login extends React.Component {
 
                 <View style={styles.logoContainer}>
                     <Text style={styles.textLogo}>
-                        LOGO
-                    </Text>
-                    <Text style={styles.title}>
-                        Login text
+                        SafeDeliver
                     </Text>
                 </View>
                 <View style={styles.formContainer}>
@@ -59,7 +56,7 @@ const styles = StyleSheet.create({
         height: 100
     },
     textLogo: {
-        fontSize: 30,
+        fontSize: 35,
         fontWeight: 'bold'
     },
     title: {

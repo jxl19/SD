@@ -17,10 +17,10 @@
     <Button 
         android:text=""
         android:id="@+id/btnDoMagic"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="20dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
         />
     <!--Profile image for the chat head.-->
     <ImageView

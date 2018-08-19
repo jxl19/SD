@@ -6,14 +6,6 @@
         android:id="@+id/floating_bubble_root"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-    <!--<ImageButton-->
-        <!--android:id="@+id/floating_head_image_button"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@drawable/button_transparent"-->
-
-    <!--/>-->
     <Button 
         android:text=""
         android:id="@+id/btnDoMagic"
@@ -22,7 +14,7 @@
         android:layout_marginTop="1dp"
         android:layout_marginBottom="1dp"
         />
-    <!--Profile image for the chat head.-->
+
     <ImageView
             android:id="@+id/floating_head_image"
             android:layout_width="60dp"
@@ -31,12 +23,4 @@
             android:layout_marginBottom="20dp"
             tools:ignore="ContentDescription"/>
 
-    <!--Close button-->
-    <!-- <ImageView
-            android:id="@+id/close_button"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:layout_marginLeft="40dp"
-            android:src="@drawable/cancel"
-            tools:ignore="ContentDescription"/> -->
 </RelativeLayout>

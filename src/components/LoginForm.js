@@ -1,7 +1,15 @@
 import React from 'react';
-import { StyleSheet, View, TextInput, Text, TouchableOpacity, NativeModules } from 'react-native';
+import { 
+    StyleSheet, 
+    View, 
+    TextInput, 
+    Text, 
+    TouchableOpacity, 
+    NativeModules 
+} from 'react-native';
 import { Redirect } from 'react-router-native';
 import * as Progress from 'react-native-progress';
+import { BASE_URL } from '../config';
 export default class LoginForm extends React.Component {
 
     constructor(props) {
@@ -24,7 +32,7 @@ export default class LoginForm extends React.Component {
             this.setState({loading:false});
             this.setState({invalidLogin:true});
         }
-        else fetch(`https://safedeliver.herokuapp.com/api/users/login`,
+        else fetch(`${BASE_URL}/api/users/login`,
             {
                 method: 'POST',
                 headers: {
@@ -49,7 +57,7 @@ export default class LoginForm extends React.Component {
     }
     //refresh tokens
     handleRefresh = () => {
-        fetch(`https://safedeliver.herokuapp.com/alarm/refresh`,
+        fetch(`${BASE_URL}/alarm/refresh`,
         {
             method: 'GET'
         })
@@ -61,7 +69,7 @@ export default class LoginForm extends React.Component {
     }
     handleRedirect = () => {
         const activityStarter = NativeModules.ActivityStarter;
-        fetch(`https://safedeliver.herokuapp.com/api/users/testuser`,
+        fetch(`${BASE_URL}/api/users/testuser`,
             {
                 method: 'GET'
             })

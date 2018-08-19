@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.util.Log;
+import java.util.Timer;
+import java.util.TimerTask;
 import android.view.*;
 import android.widget.Button;
 import android.content.pm.PackageManager;
@@ -162,6 +164,7 @@ public class FloatingButtonService extends Service implements LocationListener {
             onLocationChanged(location);
         } else {
             locationManager.requestLocationUpdates(provider, 1000, 0, this);
+            Log.i("requesting location", "value: " + location);
         }
     }
     public void load() {
@@ -206,11 +209,18 @@ public class FloatingButtonService extends Service implements LocationListener {
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Timer timer = new Timer();
+                TimerTask task = new TimerTask() {
+                    public void run() {
+                        createAlarm(); 
+                    }
+                };
                 Log.i("alarm", "value: " + buttonPressed);
                 if(!buttonPressed) {
                     Log.i("onclick", "creating alarm from onclick");
                     location();
-                    createAlarm();
+                    Log.i("longitude", "value: " + Lngi);
+                    timer.schedule(task, 1500);
                 }
                     startApp();
                     numPad();
@@ -219,12 +229,18 @@ public class FloatingButtonService extends Service implements LocationListener {
         });    
 
         btn.setOnLongClickListener(new View.OnLongClickListener() {
+            Timer timer = new Timer();
+            TimerTask task = new TimerTask() {
+                public void run() {
+                    createAlarm(); 
+                    checkAlarmReq();
+                }
+            };
             @Override
             public boolean onLongClick(View v) {
                 // Log.i("Long Click", "Longclick!");
                 location();
-                createAlarm();
-                checkAlarmReq();
+                timer.schedule(task, 1500);
                 return false;
             }
         });

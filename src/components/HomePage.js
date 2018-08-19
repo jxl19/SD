@@ -1,19 +1,25 @@
-//@flow
-import React from 'react';
-import { Platform, StyleSheet, Text, View, Button, NativeModules } from 'react-native';
-import { Redirect } from 'react-router-native';
-import ToggleSwitch from 'toggle-switch-react-native';
+import React from "react";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  NativeModules
+} from "react-native";
+import { Redirect } from "react-router-native";
+import ToggleSwitch from "toggle-switch-react-native";
+import { BASE_URL } from "../config";
 
 export default class HomePage extends React.Component {
   state = {
     isOnLargeToggleSwitch: false,
-    pin: '',
+    pin: ""
   };
-  grabData = () => {
-    fetch(`https://safedeliver.herokuapp.com/api/users/testuser`,
-      {
-        method: 'GET'
-      })
+  grabPin = () => {
+    fetch(`${BASE_URL}/api/users/testuser`, {
+      method: "GET"
+    })
       .then(res => {
         return res.json();
       })
@@ -21,31 +27,27 @@ export default class HomePage extends React.Component {
         console.log(res);
         this.setState({ pin: res.pin });
       })
-      .catch(err => console.log(err))
-  }
+      .catch(err => console.log(err));
+  };
 
   componentDidMount() {
-    this.grabData();
+    this.grabPin();
   }
 
   render() {
-    // console.log(this.state.accessToken.length);
-    // console.log(this.state.refreshToken);
-    //   if(!this.state.accessToken && !this.state.refreshToken) {
-    //     console.log('redirect to handle auth..');
-    //     return <Redirect to='/HandleAuth'/>
-    //   }
+    //accessing native module method
     const activityStarter = NativeModules.ActivityStarter;
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Toggle on to create a floating button. The button will hover on the top right side of your phone. Hold the button when you are feeling unsafe and let go when you feel safe. Once you let go, you will be prompted for the 4 digit pin you created.
-          </Text>
-        <Text style={styles.instructions}>
-          Your Pin: {this.state.pin}
+          Toggle on to create a floating button. The button will hover on the
+          top right side of your phone. 
+          {"\n"}
+          {"\n"}
+          Hold the button when you are feeling unsafe and let go when you feel safe. You will then be prompted for your pin.
         </Text>
+        <Text style={styles.instructions}>Your Pin: {this.state.pin}</Text>
         <ToggleSwitch
-          label="Toggle Button"
           size="large"
           isOn={this.state.isOnLargeToggleSwitch}
           onToggle={isOnLargeToggleSwitch => {
@@ -61,19 +63,20 @@ export default class HomePage extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#2196F3"
   },
   welcome: {
     fontSize: 20,
-    textAlign: 'center',
+    textAlign: "center",
     margin: 10,
+    color: "#f5f6fa"
   },
   instructions: {
-    textAlign: 'center',
-    color: '#333333',
+    textAlign: "center",
+    color: "#f5f6fa",
     marginBottom: 30,
-    fontSize: 15
-  },
+    fontSize: 20
+  }
 });

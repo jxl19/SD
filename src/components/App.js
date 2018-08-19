@@ -1,4 +1,3 @@
-//@flow
 import React from 'react';
 import { Platform, StyleSheet, Text, View, Button, NativeModules } from 'react-native';
 import { NativeRouter, Switch, Route } from 'react-router-native';

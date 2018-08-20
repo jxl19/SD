@@ -143,6 +143,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-android-location-services-dialog-box')
     compile project(':react-native-app-auth')
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
     implementation fileTree(dir: "libs", include: ["*.jar"])

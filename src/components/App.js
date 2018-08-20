@@ -6,6 +6,7 @@ import Login from './Login';
 import SignUp from './SignUp';
 import GetAuth from './GetAuth';
 import HandleAuth from './HandleAuth';
+import LocationSettings from './LocationSettings';
 import createHistory from 'history/createMemoryHistory';
 
 const history = createHistory();
@@ -18,6 +19,7 @@ export default class App extends React.Component {
         <View style={styles.container}>
         <Switch>
           <Route exact path="/" component={Login} />
+          <Route exact path="/LocationSettings" component={LocationSettings} />
           <Route exact path="/SignUp" component={SignUp} />
           <Route exact path="/HomePage" component={HomePage} />
           <Route exact path="/GetAuth" component={GetAuth} />

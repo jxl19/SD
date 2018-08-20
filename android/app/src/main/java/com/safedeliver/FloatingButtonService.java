@@ -43,7 +43,11 @@ public class FloatingButtonService extends Service implements LocationListener {
     private static final String FILE_NAME = "uId.txt";
     private LocationManager locationManager;
     private String provider;
-    private static Boolean buttonPressed = false;
+    private static Boolean LongClicked = false;
+    boolean isGPSEnabled = false;
+    boolean isNetworkEnabled = false;
+    boolean canGetLocation = false;
+    double latitude,longitude;
 
     public static void req_api(String eP) throws Exception {
         String url = "http://safedeliver.herokuapp.com/" + eP;
@@ -77,9 +81,9 @@ public class FloatingButtonService extends Service implements LocationListener {
             Log.i("id", "id: " +myResponse.getString("alarmId"));
         
             if(myResponse.getString("alarmId").length() > 1) {
-                buttonPressed = true;
+                LongClicked = true;
             } else {
-                buttonPressed = false;
+                LongClicked = false;
             }
         }
     
@@ -155,16 +159,50 @@ public class FloatingButtonService extends Service implements LocationListener {
         // Define the criteria how to select the locatioin provider -> use
         // default
         Criteria criteria = new Criteria();
-        provider = locationManager.getBestProvider(criteria, false);
+        provider = String.valueOf(locationManager.getBestProvider(criteria, true)).toString();
         Location location = locationManager.getLastKnownLocation(provider);
+        
+        isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-        // Initialize the location fields
-        if (location != null) {
-            Log.i("change location", "value: " + location);
-            onLocationChanged(location);
-        } else {
-            locationManager.requestLocationUpdates(provider, 1000, 0, this);
-            Log.i("requesting location", "value: " + location);
+        isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        Log.i("gpsenabled", "value: " + isGPSEnabled);
+        Log.i("netenabled", "value: " + isNetworkEnabled);
+
+
+       if (isNetworkEnabled){
+            Log.i("insidenet", "value: " + isNetworkEnabled);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000,1, this);
+
+            if (location != null){
+                // location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                    Lati = (int) (location.getLatitude());
+                    Lngi = (int) (location.getLongitude());
+                    Acc = (int) (location.getAccuracy());
+            }
+            else {
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000,1, this);
+            }
+        }
+
+        else if (isGPSEnabled){
+                
+            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if (location != null){
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+                Lati = (int) (location.getLatitude());
+                Lngi = (int) (location.getLongitude());
+                Acc = (int) (location.getAccuracy());
+                }
+                else {
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this);
+                }
+        } 
+
+        else {
+            Log.i("no location", "none");
         }
     }
     public void load() {
@@ -215,12 +253,9 @@ public class FloatingButtonService extends Service implements LocationListener {
                         createAlarm(); 
                     }
                 };
-                Log.i("alarm", "value: " + buttonPressed);
-                if(!buttonPressed) {
-                    Log.i("onclick", "creating alarm from onclick");
+                if(!LongClicked) {
                     location();
-                    Log.i("longitude", "value: " + Lngi);
-                    timer.schedule(task, 1500);
+                    createAlarm();
                 }
                     startApp();
                     numPad();
@@ -229,18 +264,12 @@ public class FloatingButtonService extends Service implements LocationListener {
         });    
 
         btn.setOnLongClickListener(new View.OnLongClickListener() {
-            Timer timer = new Timer();
-            TimerTask task = new TimerTask() {
-                public void run() {
-                    createAlarm(); 
-                    checkAlarmReq();
-                }
-            };
             @Override
             public boolean onLongClick(View v) {
-                // Log.i("Long Click", "Longclick!");
+                Log.i("Long Click", "Longclick!");
                 location();
-                timer.schedule(task, 1500);
+                createAlarm(); 
+                checkAlarmReq();
                 return false;
             }
         });
@@ -253,6 +282,7 @@ public class FloatingButtonService extends Service implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
+        locationManager.removeUpdates(this);
         Lati = (int) (location.getLatitude());
         Lngi = (int) (location.getLongitude());
         Acc = (int) (location.getAccuracy());

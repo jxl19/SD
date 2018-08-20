@@ -127,7 +127,7 @@ export default class SignUpForm extends React.Component {
       );
     }
     if (this.state.pressed && this.state.signUpComplete) {
-      return <Redirect to="/HandleAuth" />;
+      return <Redirect to="/LocationSettings" />;
     }
     if (this.state.returnLogin) {
       return <Redirect to="/" />;
@@ -196,7 +196,7 @@ export default class SignUpForm extends React.Component {
             <Text style={styles.invalid}> passwords do not match </Text>
           )) ||
             (this.state.signupFailed && (
-              <Text style={styles.invalid}> unable to create account </Text>
+              <Text style={styles.invalid}> username already exists </Text>
             )) ||
             (this.state.pinError && (
               <Text style={styles.invalid}> Pin can only be numbers </Text>

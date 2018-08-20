@@ -50,6 +50,9 @@ public class NumberPadActivity extends ReactActivity implements View.OnFocusChan
     private String provider;
     private static String uId;
     private static final String FILE_NAME = "uId.txt";
+    private static int Lati;
+    private static int Lngi;
+    private static int Acc;
     
     public static void req_api(String eP) throws Exception {
         String url = "http://safedeliver.herokuapp.com/" + eP;
@@ -104,7 +107,7 @@ public class NumberPadActivity extends ReactActivity implements View.OnFocusChan
         }
     }
         private void cancelAlarm() {
-                if (android.os.Build.VERSION.SDK_INT > 9)
+        if (android.os.Build.VERSION.SDK_INT > 9)
         {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -112,6 +115,19 @@ public class NumberPadActivity extends ReactActivity implements View.OnFocusChan
         try {
             String cancelEp = "alarm/" + uId + "/cancel";
             NumberPadActivity.req_api(cancelEp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void updateAlarm() {
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        try {
+            String updateEp = "alarm/update/" + uId + "/" +Lati+ "/" +Lngi+"/" +Acc;
+            NumberPadActivity.req_api(updateEp);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -171,7 +187,7 @@ public class NumberPadActivity extends ReactActivity implements View.OnFocusChan
           Toast.LENGTH_SHORT);
           timer.schedule(task, 1200);
         } else {
-            //update location
+          updateAlarm();
           msg = Toast.makeText(getBaseContext(),"Invalid Pin. Try Again.",
           Toast.LENGTH_SHORT);
         }
@@ -203,10 +219,9 @@ public class NumberPadActivity extends ReactActivity implements View.OnFocusChan
         Criteria criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
         Location location = locationManager.getLastKnownLocation(provider);
-
+        locationManager.requestLocationUpdates(provider, 1000, 0, this);
         // Initialize the location fields
         if (location != null) {
-            Log.i("change location", "value: " + location);
             onLocationChanged(location);
         } else {
             locationManager.requestLocationUpdates(provider, 1000, 0, this);
@@ -216,10 +231,14 @@ public class NumberPadActivity extends ReactActivity implements View.OnFocusChan
     }
     @Override
     public void onLocationChanged(Location location) {
-        int lat = (int) (location.getLatitude());
-        int lng = (int) (location.getLongitude());
-        Log.i("lat", "value: " + lat);
-        Log.i("lng", "value: " + lng);
+        // locationManager.removeUpdates(this);
+        Lati = (int) (location.getLatitude());
+        Lngi = (int) (location.getLongitude());
+        Acc = (int) (location.getAccuracy());
+        Log.i("lat", "value: " + Lati);
+        Log.i("lng", "value: " + Lngi);
+        Log.i("acc", "value: " + Acc);
+        updateAlarm();
     }
 
     //need bottom 3
@@ -338,7 +357,6 @@ public class NumberPadActivity extends ReactActivity implements View.OnFocusChan
         } else if (s.length() == 4) {
             setFocusedPinBackground(mPinForthDigitEditText);
             mPinForthDigitEditText.setText(s.charAt(3) + "");
-
             checkPin();
             clearInput();
             }

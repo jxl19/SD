@@ -63,25 +63,25 @@ export default class LoginForm extends React.Component {
         })
         .then(res => {
             console.log(res);
-            this.handleRedirect();
+            this.setState({loginComplete: true, loading: false});
         })
         .catch(err => console.log(err));
     }
-    handleRedirect = () => {
-        const activityStarter = NativeModules.ActivityStarter;
-        fetch(`${BASE_URL}/api/users/testuser`,
-            {
-                method: 'GET'
-            })
-            .then(res => {
-                return res.json();
-            })
-            .then(res => {
-                activityStarter.grabInfo(res.id);
-                this.setState({ accessToken: res.accessToken, refreshToken: res.refreshToken, loginComplete: true, loading: false });
-            })
-            .catch(err => console.log(err))
-    }
+    // handleRedirect = () => {
+    //     const activityStarter = NativeModules.ActivityStarter;
+    //     fetch(`${BASE_URL}/api/users/testuser`,
+    //         {
+    //             method: 'GET'
+    //         })
+    //         .then(res => {
+    //             return res.json();
+    //         })
+    //         .then(res => {
+    //             activityStarter.grabInfo(res.id);
+    //             this.setState({ accessToken: res.accessToken, refreshToken: res.refreshToken, loginComplete: true, loading: false });
+    //         })
+    //         .catch(err => console.log(err))
+    // }
     render() {
         let Invalid, LoadingCircle;
         if(this.state.loading) {
@@ -93,11 +93,8 @@ export default class LoginForm extends React.Component {
               borderWidth={2}
             /></View>;
         }
-        if (!this.state.accessToken && !this.state.refreshToken && this.state.loginComplete) {
-            return <Redirect to="/HandleAuth" />
-        }
-        else if (this.state.accessToken && this.state.refreshToken && this.state.loginComplete) {
-            return <Redirect to='/HomePage' />
+        if (this.state.loginComplete) {
+            return <Redirect to='/LocationSettings' />;
         }
         else if (this.state.invalidLogin) {
             Invalid = <Text style={styles.loginError}>Invalid username or password</Text>;

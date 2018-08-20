@@ -16,7 +16,7 @@ export default class HomePage extends React.Component {
     isOnLargeToggleSwitch: false,
     pin: ""
   };
-  grabPin = () => {
+  grabData = () => {
     fetch(`${BASE_URL}/api/users/testuser`, {
       method: "GET"
     })
@@ -29,9 +29,9 @@ export default class HomePage extends React.Component {
       })
       .catch(err => console.log(err));
   };
-
+//homepage to check if we need to redir to getauth
   componentDidMount() {
-    this.grabPin();
+    this.grabData();
   }
 
   render() {

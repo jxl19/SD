@@ -1,0 +1,173 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#2196F3",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexGrow": 0.5,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "fontSize": 35,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#fbc531",
+          }
+        }
+      >
+        Safe
+      </Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#f5f6fa",
+          }
+        }
+      >
+        Deliver
+      </Text>
+    </Text>
+  </View>
+  <View>
+    <View
+      style={
+        Object {
+          "padding": 20,
+        }
+      }
+    >
+      <TextInput
+        allowFontScaling={true}
+        blurOnSubmit={false}
+        onChangeText={[Function]}
+        onSubmitEditing={[Function]}
+        placeholder="username"
+        placeholderTextColor="rgba(255,255,255,0.8)"
+        returnKeyType="next"
+        style={
+          Object {
+            "backgroundColor": "rgba(255,255,255,0.2)",
+            "color": "#FFF",
+            "height": 40,
+            "marginBottom": 10,
+            "paddingHorizontal": 10,
+          }
+        }
+        underlineColorAndroid="transparent"
+      />
+      <TextInput
+        allowFontScaling={true}
+        onChangeText={[Function]}
+        placeholder="password"
+        placeholderTextColor="rgba(255,255,255,0.8)"
+        returnKeyType="go"
+        secureTextEntry={true}
+        style={
+          Object {
+            "backgroundColor": "rgba(255,255,255,0.2)",
+            "color": "#FFF",
+            "height": 40,
+            "marginBottom": 10,
+            "paddingHorizontal": 10,
+          }
+        }
+        underlineColorAndroid="transparent"
+      />
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#3F51B5",
+            "marginBottom": 7,
+            "opacity": 1,
+            "paddingVertical": 15,
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "color": "#FFFFFF",
+              "fontWeight": "700",
+              "textAlign": "center",
+            }
+          }
+        >
+          Login
+        </Text>
+      </View>
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#fbc531",
+            "marginBottom": 7,
+            "opacity": 1,
+            "paddingVertical": 15,
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          onPress={[Function]}
+          style={
+            Object {
+              "color": "#FFFFFF",
+              "fontWeight": "700",
+              "textAlign": "center",
+            }
+          }
+        >
+           Sign Up 
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;

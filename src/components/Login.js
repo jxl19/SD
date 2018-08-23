@@ -2,7 +2,6 @@ import React from "react";
 import { StyleSheet, View, Image, Text, Button } from "react-native";
 import { Redirect } from "react-router-native";
 import LoginForm from "./LoginForm";
-import SignUp from "./SignUp";
 
 export default class Login extends React.Component {
   constructor(props) {

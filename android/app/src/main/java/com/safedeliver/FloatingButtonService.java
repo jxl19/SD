@@ -256,6 +256,9 @@ public class FloatingButtonService extends Service implements LocationListener {
                 if(!LongClicked) {
                     location();
                     createAlarm();
+                    Toast.makeText(getApplicationContext(),
+                        "Alarm Created",
+                        Toast.LENGTH_SHORT).show();
                 }
                     startApp();
                     numPad();
@@ -269,6 +272,9 @@ public class FloatingButtonService extends Service implements LocationListener {
                 Log.i("Long Click", "Longclick!");
                 location();
                 createAlarm(); 
+                Toast.makeText(getApplicationContext(),
+                        "Alarm Created",
+                        Toast.LENGTH_SHORT).show();
                 checkAlarmReq();
                 return false;
             }
